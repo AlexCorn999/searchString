@@ -35,8 +35,6 @@ func main() {
 
 	bubbleSort(&finishArray)
 
-	fmt.Printf("Первый массив - %v\n", Array1)
-	fmt.Printf("Второй массив - %v\n", Array2)
 	fmt.Printf("После соединения - %v\n", finishArray)
 
 }
