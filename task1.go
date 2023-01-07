@@ -1,43 +1,48 @@
 package main
 
-import "fmt"
+import (
+	"flag"
+	"fmt"
+)
 
-const firstArray = 4
-const secondArray = 5
-const finishArray = 9
+func searchString(str []rune, substr []rune) bool {
+	flag := false
+	j := 0
+	for i := 0; i < len(str); i++ {
 
-func bubbleSort(array *[finishArray]int) {
-	for i := 0; i < len(*array); i++ {
-		for j := i; j < len(*array); j++ {
-			if array[i] > array[j] {
-				array[i], array[j] = array[j], array[i]
+		if j < len(substr) {
+
+			if str[i] == substr[j] && flag == false {
+				flag = true
 			}
+
+			if flag == true {
+				if j == len(substr)-1 {
+					break
+				} else if str[i] == substr[j] {
+					flag = true
+				} else {
+					flag = false
+					j = 0
+					continue
+				}
+				j++
+			}
+
 		}
 	}
-}
-
-func merge(array1 [firstArray]int, array2 [secondArray]int) (thirdArray [finishArray]int) {
-	i := 0
-
-	for first, _ := range array1 {
-		thirdArray[i] = array1[first]
-		i++
-	}
-
-	for second, _ := range array2 {
-		thirdArray[i] = array2[second]
-		i++
-	}
-	return
+	return flag
 }
 
 func main() {
-	Array1 := [firstArray]int{2, 5, 8, 12}
-	Array2 := [secondArray]int{1, 3, 6, 7, 9}
+	str := new(string)
+	substr := new(string)
+	flag.StringVar(str, "str", "default string", "set string")
+	flag.StringVar(substr, "substr", "default substring", "set substring")
+	flag.Parse()
+	fmt.Println(*str, *substr)
 
-	thirdArray := merge(Array1, Array2)
-	bubbleSort(&thirdArray)
-
-	fmt.Printf("После соединения - %v\n", thirdArray)
-
+	strS := []rune(*str)
+	substrS := []rune(*substr)
+	fmt.Println(searchString(strS, substrS))
 }
