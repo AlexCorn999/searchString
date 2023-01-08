@@ -30,6 +30,9 @@ func searchString(str []rune, substr []rune) bool {
 			}
 
 		}
+		if i == len(str)-1 && j < len(substr) {
+			flag = false
+		}
 	}
 	return flag
 }
